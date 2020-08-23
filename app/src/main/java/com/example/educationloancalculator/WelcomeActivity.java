@@ -13,19 +13,20 @@ import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    //Splash screen time variable
-    private static int SPLASH_SCREEN = 3000;
+    //Splash screen off time variable
+    private static int SPLASH_SCREEN_OFF = 3000;
 
     //variables of animations
     Animation topAnim, bottomAnim;
 
-    //variables
+    //variables of intents
     ImageView logo;
     TextView appName, slogan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //remove app bar and status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
 
@@ -43,13 +44,15 @@ public class WelcomeActivity extends AppCompatActivity {
         appName.setAnimation(bottomAnim);
         slogan.setAnimation(bottomAnim);
 
+        //runnable handler
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                //calling home
                 Intent home = new Intent(WelcomeActivity.this,  InterestCalculatorMain.class);
                 startActivity(home);
                 finish();
             }
-        }, SPLASH_SCREEN);
+        }, SPLASH_SCREEN_OFF);
     }
 }
