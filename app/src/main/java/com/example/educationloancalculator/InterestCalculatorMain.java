@@ -1,26 +1,29 @@
 package com.example.educationloancalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class InterestCalculatorMain extends AppCompatActivity implements View.OnClickListener{
     //declare global variables
-    ImageButton calNavigator, historyNavigator;
+    CardView calNavigator, historyNavigator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_interest_calculator_main);
 
         //initiate buttons
-        calNavigator = (ImageButton) findViewById(R.id.calculatorNavigatorBtn);
-        historyNavigator = (ImageButton) findViewById(R.id.historyNavigatorBtn);
+        calNavigator = (CardView) findViewById(R.id.calculatorNavigatorBtn);
+        historyNavigator = (CardView) findViewById(R.id.historyNavigatorBtn);
 
         //set onclick listeners
         calNavigator.setOnClickListener(this);
@@ -46,3 +49,4 @@ public class InterestCalculatorMain extends AppCompatActivity implements View.On
         }
     }
 }
+

@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Education Calculator</string>
-    <string name="btn_loan_calculator">Loan Calculator</string>
+    <string name="app_name">Education Loan Calculator</string>
+    <string name="text_loan_calculator">Loan Calculator</string>
+    <string name="text_view_history">View History</string>
+    <string name="welcome_text">Welcome Back!</string>
+    <string name="welcome_sub_text">Calculation at your Finger Tips</string>
 </resources>
