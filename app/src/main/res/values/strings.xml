@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">EducationLoanCalculator</string>
+    <string name="app_name">Education Calculator</string>
+    <string name="btn_loan_calculator">Loan Calculator</string>
 </resources>
