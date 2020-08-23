@@ -39,6 +39,8 @@ public class InterestCalculatorMain extends AppCompatActivity implements View.On
                 //log message
                 Log.d("onClickListeners", "Calculator navigation clicked");
                 Toast.makeText(this, "Calculator Button Clicked", Toast.LENGTH_LONG).show();
+                Intent calculator = new Intent(this, CalculatorActivity.class);
+                startActivity(calculator);
                 break;
             case R.id.historyNavigatorBtn :
                 //log message
