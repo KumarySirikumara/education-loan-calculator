@@ -6,4 +6,7 @@
     <color name="white">#ffffff</color>
     <color name="white_dull">#DCF2E4</color>
     <color name="text_color">#6f6f6f</color>
+    <color name="chart_light">#66CDAA</color>
+    <color name="chart_dark">#3CB371</color>
+    <color name="icon_colors">#005792</color>
 </resources>

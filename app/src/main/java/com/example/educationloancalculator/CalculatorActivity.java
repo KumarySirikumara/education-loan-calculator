@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
     ImageButton backButton;
     Button submit;
     TextInputEditText loanAmount, interestRate, loanTerm;
+    String spinnerSelection = "YEARS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,8 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                spinnerSelection = item;
+                Snackbar.make(view, "Selected : " + item, Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -61,16 +64,25 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.backButton :
+                //Log message
+                Log.d("onClickListeners", "back clicked");
                 //back button on click
-                Intent home = new Intent(this, InterestCalculatorMain.class);
+                Intent home = new Intent(this, HomeActivity.class);
                 startActivity(home);
                 break;
             case R.id.calculateSubmit :
+                //Log message
+                Log.d("onClickListeners", "submit clicked");
                 //submit button on click
                 //validate input values whether empty
                 if(!inputIsEmpty()){
                     //pass values to the output activity
-
+                    Intent resultActivity = new Intent(this, ResultActivity.class);
+                    resultActivity.putExtra("lAmount", loanAmount.getText().toString());
+                    resultActivity.putExtra("iRate", interestRate.getText().toString());
+                    resultActivity.putExtra("lTerm", loanTerm.getText().toString());
+                    resultActivity.putExtra("rPeriod", spinnerSelection);
+                    startActivity(resultActivity);
                 }
                 break;
         }

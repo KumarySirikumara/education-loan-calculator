@@ -49,7 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //calling home
-                Intent home = new Intent(WelcomeActivity.this,  InterestCalculatorMain.class);
+                Intent home = new Intent(WelcomeActivity.this,  HomeActivity.class);
                 startActivity(home);
                 finish();
             }

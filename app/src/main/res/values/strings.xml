@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Education Loan Calculator</string>
     <string name="text_loan_calculator">Loan Calculator</string>
+    <string name="text_result_app_bar">Payment Details</string>
     <string name="text_view_history">View History</string>
     <string name="welcome_text">Welcome Back!</string>
     <string name="welcome_sub_text">Calculation at your Finger Tips</string>
@@ -9,4 +10,7 @@
     <string name="loan_term">Loan Term</string>
     <string name="year">Year</string>
     <string name="month">Month</string>
+    <string name="totalPayment">Payment</string>
+    <string name="totalInterest">Interest</string>
+    <string name="loanAmount">Loan</string>
 </resources>

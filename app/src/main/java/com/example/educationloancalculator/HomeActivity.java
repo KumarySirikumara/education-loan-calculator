@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class InterestCalculatorMain extends AppCompatActivity implements View.OnClickListener{
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     //declare global variables
     CardView calNavigator, historyNavigator;
     @Override
@@ -20,7 +18,7 @@ public class InterestCalculatorMain extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         //remove app bar and status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_interest_calculator_main);
+        setContentView(R.layout.activity_home);
 
         //initiate buttons
         calNavigator = (CardView) findViewById(R.id.calculatorNavigatorBtn);
@@ -38,14 +36,12 @@ public class InterestCalculatorMain extends AppCompatActivity implements View.On
             case R.id.calculatorNavigatorBtn :
                 //log message
                 Log.d("onClickListeners", "Calculator navigation clicked");
-                Toast.makeText(this, "Calculator Button Clicked", Toast.LENGTH_LONG).show();
                 Intent calculator = new Intent(this, CalculatorActivity.class);
                 startActivity(calculator);
                 break;
             case R.id.historyNavigatorBtn :
                 //log message
                 Log.d("onClickListeners", "History navigation clicked");
-                Toast.makeText(this, "History Button Clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
