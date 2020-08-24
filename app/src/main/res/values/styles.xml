@@ -5,6 +5,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/playRegularTextView</item>
+        <item name="android:buttonStyle">@style/playRegularButton</item>
+        <item name="android:editTextStyle">@style/playRegularEditText</item>
     </style>
-
+    <style name="playRegularTextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/play_regular</item>
+    </style>
+    <style name="playRegularButton" parent="android:Widget.Button">
+        <item name="android:fontFamily">@font/play_regular</item>
+    </style>
+    <style name="playRegularEditText" parent="android:Widget.EditText">
+        <item name="android:fontFamily">@font/play_regular</item>
+    </style>
 </resources>

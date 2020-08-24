@@ -2,21 +2,25 @@ package com.example.educationloancalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-public class CalculatorActivity extends AppCompatActivity {
+public class CalculatorActivity extends AppCompatActivity implements View.OnClickListener {
     //Declare Global Variables
-    TextInputLayout loanAmount;
-
+    TextInputLayout loanAmountLayout, interestRateLayout, loanTermLayout;
+    ImageButton backButton;
+    Button submit;
+    TextInputEditText loanAmount, interestRate, loanTerm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +38,73 @@ public class CalculatorActivity extends AppCompatActivity {
             }
         });
 
-        //Initiate EditText fields
-        loanAmount = (TextInputLayout) findViewById(R.id.loanAmountEditTextLayout);
-        loanAmount.setError("Hoola");
+        //Initiate EditText Layouts
+        loanAmountLayout = (TextInputLayout) findViewById(R.id.loanAmountEditTextLayout);
+        interestRateLayout = (TextInputLayout) findViewById(R.id.interestRateEditTextLayout);
+        loanTermLayout = (TextInputLayout) findViewById(R.id.loanTermEditTextLayout);
+
+        //initiate EditText fields
+        loanAmount = (TextInputEditText) findViewById(R.id.loanAmountEditText);
+        interestRate = (TextInputEditText) findViewById(R.id.interestRateEditText);
+        loanTerm = (TextInputEditText) findViewById(R.id.loanTermEditText);
+
+        //initiate button references
+        backButton = (ImageButton)findViewById(R.id.backButton);
+        submit = (Button)findViewById(R.id.calculateSubmit);
+
+        //on click listeners
+        backButton.setOnClickListener(this);
+        submit.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.backButton :
+                //back button on click
+                Intent home = new Intent(this, InterestCalculatorMain.class);
+                startActivity(home);
+                break;
+            case R.id.calculateSubmit :
+                //submit button on click
+                //validate input values whether empty
+                if(!inputIsEmpty()){
+                    //pass values to the output activity
+
+                }
+                break;
+        }
+    }
+
+    public boolean inputIsEmpty(){
+
+        //set all errors to null
+        loanAmountLayout.setError(null);
+        interestRateLayout.setError(null);
+        loanTermLayout.setError(null);
+
+        String loanAmountVal = loanAmount.getText().toString();
+        String interestRateVal = interestRate.getText().toString();
+        String loanTermVal = loanTerm.getText().toString();
+
+        if(loanAmountVal.trim().isEmpty() || interestRateVal.trim().isEmpty() || loanTermVal.trim().isEmpty()){
+            //check empty field and set error to the relevant text field
+            if(loanAmountVal.trim().isEmpty()){
+                loanAmountLayout.setError("Cannot be empty!");
+            }
+
+            if(interestRateVal.trim().isEmpty()){
+                interestRateLayout.setError("Cannot be empty!");
+            }
+
+            if(loanTermVal.trim().isEmpty()){
+                loanTermLayout.setError("Cannot be empty!");
+            }
+
+            Toast.makeText(this, "Please fill all Fields!", Toast.LENGTH_LONG).show();
+
+            return true;
+        }
+        return false;
+    }
 }
