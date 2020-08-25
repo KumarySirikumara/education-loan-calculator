@@ -33,7 +33,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     PieChart pieChart;
     float totalPayment = 0;
     TextView interest, loan, payment, paymentPer;
-
+    //colors of pie chart
     int[] colorArray = new int[]{Color.parseColor("#066DA5"), Color.parseColor("#077CBC")};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,15 +87,19 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         loan.setText(String.format("%.2f", loanAmount));
         payment.setText(String.format("%.2f", totalPayment));
 
+        //Pie chart configurations
         pieChart = findViewById(R.id.resultChart);
 
         ArrayList<PieEntry> dataValues = new ArrayList<>();
         dataValues.add(new PieEntry(loanAmount, "Loan"));
         dataValues.add(new PieEntry(totalInterest, "Interest"));
 
+        //add data values to pie chart
         PieDataSet pieDataSet = new PieDataSet(dataValues, "");
+        //set pie chart colors
         pieDataSet.setColors(colorArray);
 
+        //pie chart data view configurations
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueFormatter(new PercentFormatter(pieChart));
         pieData.setValueTextSize(10);
@@ -105,7 +109,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         pieChart.invalidate();
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
-//        pieChart.setDrawEntryLabels(false);
+
+        //Entry labels disabled
+        //pieChart.setDrawEntryLabels(false);
+        //Pie chart animation
+
         pieChart.animateXY(1000, 1000);
 
         //Spinner for loan term selection
