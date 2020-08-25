@@ -23,6 +23,7 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
     Button submit;
     TextInputEditText loanAmount, interestRate, loanTerm;
     String spinnerSelection = "YEARS";
+    String iRateSpinnerSelection = "YEAR";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +33,20 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
         //Spinner for loan term selection
         MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
+        final MaterialSpinner iRateSpinner = (MaterialSpinner) findViewById(R.id.iRateSpinner);
         spinner.setItems("YEARS", "MONTHS");
+        iRateSpinner.setItems("YEAR", "MONTH");
 
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 spinnerSelection = item;
+                Snackbar.make(view, "Selected : " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        iRateSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                iRateSpinnerSelection = item;
                 Snackbar.make(view, "Selected : " + item, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -82,6 +92,7 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                     resultActivity.putExtra("iRate", interestRate.getText().toString());
                     resultActivity.putExtra("lTerm", loanTerm.getText().toString());
                     resultActivity.putExtra("rPeriod", spinnerSelection);
+                    resultActivity.putExtra("iRateTerm", iRateSpinnerSelection);
                     startActivity(resultActivity);
                 }
                 break;

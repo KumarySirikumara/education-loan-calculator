@@ -49,6 +49,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         float iRate = Float.parseFloat(extras.getString("iRate")) / 100;
         int lTerm = Integer.parseInt(extras.getString("lTerm"));
         String rPeriod = extras.getString("rPeriod");
+        String iRateTerm = extras.getString("iRateTerm");
         Log.d("commonLog", "Values are Assigned");
 
         //calculation
@@ -59,6 +60,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         Log.d("commonLog", "Calculation Started");
         float interestPerMonth = loanAmount * iRate;
+
+        //If annual interest is given
+        if(iRateTerm.equalsIgnoreCase("YEAR")){
+            interestPerMonth = (loanAmount * iRate) / 12;
+        }
         final float paymentPerMonth = interestPerMonth + (loanAmount / lTerm);
         float totalPayment = paymentPerMonth * lTerm;
         float totalInterest = totalPayment - loanAmount;
@@ -103,10 +109,28 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         pieChart.animateXY(1000, 1000);
 
         //Spinner for loan term selection
-        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
-        spinner.setItems("MONTH", "3 MONTHS", "6 MONTHS", "YEAR");
+        MaterialSpinner paymentPerSpinner = (MaterialSpinner) findViewById(R.id.paymentPerSpinner);
+        String[] periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
 
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        if(lTerm >= 12){
+            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
+        }else if(lTerm < 12 && lTerm > 6){
+            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
+        }else if(lTerm == 6){
+            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS"};
+        }else if(lTerm < 6 && lTerm > 3){
+            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS"};
+        }else if(lTerm == 3){
+            periods = new String[]{"MONTH", "3 MONTHS"};
+        }else if(lTerm < 3 && lTerm > 1){
+            periods = new String[]{"MONTH", "3 MONTHS"};
+        }else{
+            periods = new String[]{"MONTH"};
+        }
+
+        paymentPerSpinner.setItems(periods);
+
+        paymentPerSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 if(item.equalsIgnoreCase("MONTH")){
                     paymentPer.setText(String.format("%.2f", paymentPerMonth));
