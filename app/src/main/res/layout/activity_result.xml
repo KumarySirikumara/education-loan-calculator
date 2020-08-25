@@ -51,15 +51,31 @@
                     app:cardElevation="6dp"
                     app:cardCornerRadius="12dp"
                     android:layout_margin="12dp"
-                    android:id="@+id/result_container_card">
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/resultChart"
-                        android:layout_height="350dp"
+                    android:id="@+id/result_container_card"
+                    android:background="@drawable/custom_app_bar">
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/paymentOverviewText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/paymentOverview"
+                            android:textSize="18dp">
+
+                        </TextView>
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/resultChart"
+                            android:layout_below="@+id/paymentOverviewText"
+                            android:layout_height="350dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="15dp" />
+
+                    </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
                 <GridLayout
@@ -103,7 +119,7 @@
                             <TextView
                                 android:id="@+id/totalInterest"
                                 android:layout_marginTop="12dp"
-                                android:textSize="18sp"
+                                android:textSize="15sp"
                                 android:text="0.00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -144,7 +160,7 @@
                             <TextView
                                 android:id="@+id/loanAmount"
                                 android:layout_marginTop="12dp"
-                                android:textSize="18sp"
+                                android:textSize="15sp"
                                 android:text="0.00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -184,7 +200,7 @@
                             <TextView
                                 android:id="@+id/totalPayment"
                                 android:layout_marginTop="12dp"
-                                android:textSize="18sp"
+                                android:textSize="15sp"
                                 android:text="0.00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -227,11 +243,22 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/play_bold"
                         android:layout_marginRight="12dp"
-                        android:textSize="20dp">
+                        android:textSize="20dp"
+                        android:textColor="@color/red">
 
                     </TextView>
 
+
                 </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/footer_text_kumary"
+                    android:gravity="center"
+                    android:paddingBottom="10dp">
+
+                </TextView>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

@@ -13,4 +13,11 @@
     <string name="totalPayment">Payment</string>
     <string name="totalInterest">Interest</string>
     <string name="loanAmount">Loan</string>
+    <string name="term_period_text">Term Period</string>
+    <string name="rate_for_text">Rate Per</string>
+    <string name="icon_calculator">Calculate</string>
+    <string name="paymentOverview">Payment Overview</string>
+    <string name="footer_text_kumary">IT17168250 | Sirikumara G.A.K.P</string>
+    <string name="footer_text_uthpala">IT17171366 | Bandara H.M.U.I</string>
+    <string name="footer_both">IT17168250 | IT17171366</string>
 </resources>

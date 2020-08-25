@@ -9,4 +9,5 @@
     <color name="chart_light">#66CDAA</color>
     <color name="chart_dark">#3CB371</color>
     <color name="icon_colors">#005792</color>
+    <color name="red">#FF0000</color>
 </resources>

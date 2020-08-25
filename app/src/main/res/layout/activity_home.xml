@@ -48,16 +48,16 @@
             android:layout_height="match_parent">
             <RelativeLayout
                 android:id="@+id/content_container"
-                android:layout_below="@+id/app_bar_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <GridLayout
                     android:columnCount="1"
                     android:rowCount="2"
                     android:alignmentMode="alignMargins"
                     android:columnOrderPreserved="false"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="200dp">
                     <androidx.cardview.widget.CardView
                         android:id="@+id/calculatorNavigatorBtn"
                         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <ImageView
-                                android:src="@drawable/ic_calculator"
+                                android:src="@drawable/ic_calculator_2"
                                 android:layout_width="120dp"
                                 android:layout_height="120dp" />
                             <TextView
@@ -103,7 +103,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <ImageView
-                                android:src="@drawable/ic_calculator"
+                                android:src="@drawable/ic_history"
                                 android:layout_width="120dp"
                                 android:layout_height="120dp" />
                             <TextView
@@ -116,7 +116,15 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </GridLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/footer_both"
+                    android:gravity="center"
+                    android:paddingBottom="10dp">
 
+                </TextView>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

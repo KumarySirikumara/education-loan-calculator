@@ -34,7 +34,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     float totalPayment = 0;
     TextView interest, loan, payment, paymentPer;
     //colors of pie chart
-    int[] colorArray = new int[]{Color.parseColor("#066DA5"), Color.parseColor("#077CBC")};
+    int[] colorArray = new int[]{Color.parseColor("#f7931e"), Color.parseColor("#ffd45c")};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
