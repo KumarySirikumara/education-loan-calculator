@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.historyNavigatorBtn :
                 //log message
                 Log.d("onClickListeners", "History navigation clicked");
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, HistoryActivity.class);
                 startActivity(intent);
                 break;
         }

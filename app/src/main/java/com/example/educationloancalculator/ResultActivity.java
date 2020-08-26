@@ -35,6 +35,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     TextView interest, loan, payment, paymentPer;
     //colors of pie chart
     int[] colorArray = new int[]{Color.parseColor("#f7931e"), Color.parseColor("#ffd45c")};
+    String activityFrom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         int lTerm = Integer.parseInt(extras.getString("lTerm"));
         String rPeriod = extras.getString("rPeriod");
         String iRateTerm = extras.getString("iRateTerm");
+        activityFrom = extras.getString("activityFrom");
         Log.d("commonLog", "Values are Assigned");
 
         //calculation
@@ -163,8 +166,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 //Log message
                 Log.d("onClickListeners", "back clicked");
                 //back button on click
-                Intent calculator = new Intent(this, CalculatorActivity.class);
-                startActivity(calculator);
+                if(activityFrom.equalsIgnoreCase("Calculator")){
+                    Intent calculator = new Intent(this, CalculatorActivity.class);
+                    startActivity(calculator);
+                }else{
+                    Intent history = new Intent(this, HistoryActivity.class);
+                    startActivity(history);
+                }
                 break;
         }
     }

@@ -62,7 +62,8 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/paymentOverview"
-                            android:textSize="18dp">
+                            android:textSize="18dp"
+                            android:layout_marginTop="5dp">
 
                         </TextView>
                         <com.github.mikephil.charting.charts.PieChart
@@ -105,8 +106,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_money">
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_interest_amount">
 
                             </ImageView>
                             <TextView
@@ -146,8 +147,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_money">
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_loan_amount">
 
                             </ImageView>
                             <TextView
@@ -186,8 +187,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_money">
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_payment">
 
                             </ImageView>
                             <TextView
