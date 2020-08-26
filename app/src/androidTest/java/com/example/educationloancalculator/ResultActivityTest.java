@@ -56,7 +56,9 @@ public class ResultActivityTest {
     @Test
     public void testTotalPayment(){
         //payment should equal to 10500 for given details
+        //Get TextView Reference
         TextView view = resultActivity.findViewById(R.id.totalPayment);
+        //Assert true
         assertEquals("10500.00", view.getText().toString());
     }
 
