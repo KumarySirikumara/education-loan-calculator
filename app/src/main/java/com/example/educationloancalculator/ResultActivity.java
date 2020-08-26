@@ -57,17 +57,12 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         //calculation
         //interest term convert to months
-        if(rPeriod.equalsIgnoreCase("YEARS")){
-            lTerm = lTerm * 12;
-        }
+        lTerm = getLoanTerm(rPeriod, lTerm);
 
         Log.d("commonLog", "Calculation Started");
-        float interestPerMonth = loanAmount * iRate;
+        //get Interest Rate according to rate term given
+        float interestPerMonth =  getInterestRatePerMonth(loanAmount, iRate, iRateTerm);
 
-        //If annual interest is given
-        if(iRateTerm.equalsIgnoreCase("YEAR")){
-            interestPerMonth = (loanAmount * iRate) / 12;
-        }
         final float paymentPerMonth = interestPerMonth + (loanAmount / lTerm);
         float totalPayment = paymentPerMonth * lTerm;
         float totalInterest = totalPayment - loanAmount;
@@ -185,5 +180,25 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         return interestPower;
+    }
+
+    public int getLoanTerm(String ratePeriod, int loanTerm){
+        //interest term convert to months
+        if(ratePeriod.equalsIgnoreCase("YEARS")){
+            loanTerm = loanTerm * 12;
+        }
+
+        return loanTerm;
+    }
+
+    public float getInterestRatePerMonth(float loanAmount, float iRate, String iRateTerm){
+        float interestPerMonth = loanAmount * iRate;
+
+        //If annual interest is given
+        if(iRateTerm.equalsIgnoreCase("YEAR")){
+            interestPerMonth = (loanAmount * iRate) / 12;
+        }
+
+        return interestPerMonth;
     }
 }
