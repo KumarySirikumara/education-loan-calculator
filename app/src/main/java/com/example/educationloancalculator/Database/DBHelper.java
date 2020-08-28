@@ -81,7 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 HistoryMaster.Calculations.COLUMN_NAME_SYSTEM_DATE
         };
 
-        String sortOrder = HistoryMaster.Calculations._ID + " DESC";
+        String sortOrder = HistoryMaster.Calculations._ID + " DESC LIMIT 5";
 
         Cursor cursor = db.query(
                 HistoryMaster.Calculations.TABLE_NAME,
