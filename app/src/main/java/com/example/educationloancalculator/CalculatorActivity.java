@@ -118,19 +118,18 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                     historyRepository.setRatePer(iRateSpinnerSelection);
                     //term period -> YEARS or MONTHS
                     historyRepository.setTermPeriod(spinnerSelection);
+                    //validate inputs
+                    if(validateInputs(historyRepository)) {
+                        //adding data to the database
+                        DBHelper dbHelper = new DBHelper(this);
+                        boolean result = dbHelper.addHistory(historyRepository);
 
-                    //adding data to the database
-                    DBHelper dbHelper = new DBHelper(this);
-                    boolean result = dbHelper.addHistory(historyRepository);
+                        Log.d("databaseOperation", "Database operation end!");
 
-                    Log.d("databaseOperation", "Database operation end!");
+                        //loader visibility to true
+                        progressBar.setVisibility(View.VISIBLE);
 
-                    //loader visibility to true
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    if(result){
-                        //validate inputs
-                        if(validateInputs(historyRepository)){
+                        if (result) {
                             //hide the loader
                             progressBar.setVisibility(View.INVISIBLE);
 
@@ -138,7 +137,7 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                             //pass values to the output activity
                             Intent resultActivity = new Intent(this, ResultActivity.class);
                             resultActivity.putExtra("lAmount", Float.toString(historyRepository.getlAmount()));
-                            resultActivity.putExtra("iRate",  Float.toString(historyRepository.getiRate()));
+                            resultActivity.putExtra("iRate", Float.toString(historyRepository.getiRate()));
                             resultActivity.putExtra("lTerm", Integer.toString(historyRepository.getlTerm()));
                             //term period -> YEARS or MONTHS
                             resultActivity.putExtra("rPeriod", historyRepository.getTermPeriod());
@@ -146,15 +145,17 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                             resultActivity.putExtra("iRateTerm", historyRepository.getRatePer());
                             resultActivity.putExtra("activityFrom", "Calculator");
                             startActivity(resultActivity);
-                        }else{
+                        } else {
+                            //end else add data to SQLite DB
                             //hide the loader
                             progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(this, "Error in saving data!", Toast.LENGTH_LONG).show();
                         }
 
                     }else{
+                        //end else validate inputs
                         //hide the loader
                         progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(this, "Error in saving data!", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;

@@ -70,7 +70,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         //initiate button references
         backButton = (ImageButton)findViewById(R.id.backButton);
-        backButton = (ImageButton)findViewById(R.id.homeButton);
+        homeButton = (ImageButton)findViewById(R.id.homeButton);
 
         //initiate text fields
         interest = (TextView)findViewById(R.id.totalInterest);
