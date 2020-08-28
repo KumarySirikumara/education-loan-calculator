@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
     //Global Variables
-    ImageButton backButton;
+    ImageButton backButton, homeButton;
     PieChart pieChart;
     TextView interest, loan, payment, paymentPer, interestRate, ratePer, loanTerm, termPeriod;
     //colors of pie chart
@@ -70,6 +70,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         //initiate button references
         backButton = (ImageButton)findViewById(R.id.backButton);
+        backButton = (ImageButton)findViewById(R.id.homeButton);
 
         //initiate text fields
         interest = (TextView)findViewById(R.id.totalInterest);
@@ -146,6 +147,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         //on click listeners
         backButton.setOnClickListener(this);
+        homeButton.setOnClickListener(this);
     }
 
     @Override
@@ -162,6 +164,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                     Intent history = new Intent(this, HistoryActivity.class);
                     startActivity(history);
                 }
+                break;
+            case R.id.homeButton :
+                //Log message
+                Log.d("onClickListeners", "home clicked");
+                //back button on click
+                Intent home = new Intent(this, HomeActivity.class);
+                startActivity(home);
                 break;
         }
     }
