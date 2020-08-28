@@ -7,6 +7,7 @@
     <string name="welcome_sub_text">Calculation at your Finger Tips</string>
     <string name="loan_amount">Loan Amount</string>
     <string name="interest_rate">Interest Rate (%)</string>
+    <string name="interest_rate_text">Interest Rate</string>
     <string name="loan_term">Loan Term</string>
     <string name="year">Year</string>
     <string name="month">Month</string>

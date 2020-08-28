@@ -130,7 +130,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/test2"
+                        android:id="@+id/loanAmountCard"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -171,7 +171,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/test3"
+                        android:id="@+id/paymentAmountCard"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -215,40 +215,133 @@
                     android:layout_below="@+id/grid_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="200dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/loanDetailsCard"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Payment Per"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="12dp"
-                        android:textSize="20dp">
-                    </TextView>
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        app:cardElevation="6dp"
+                        android:layout_margin="12dp"
+                        app:cardCornerRadius="12dp"
+                        android:layout_marginBottom="200dp">
+                        <RelativeLayout
+                            android:layout_below="@+id/paymentPerContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Payment Per"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="12dp"
+                                android:textSize="20dp">
+                            </TextView>
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
-                        android:id="@+id/paymentPerSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="220dp"
-                        android:layout_centerInParent="true"/>
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/paymentPerSpinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="60dp"
+                                android:layout_marginLeft="220dp"
+                                android:layout_centerInParent="true"/>
 
-                    <TextView
-                        android:id="@+id/paymentPer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0.00"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/play_bold"
-                        android:layout_marginRight="12dp"
-                        android:textSize="20dp"
-                        android:textColor="@color/red">
-
-                    </TextView>
-
+                            <TextView
+                                android:id="@+id/paymentPer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0.00"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/play_bold"
+                                android:layout_marginRight="12dp"
+                                android:textSize="20dp"
+                                android:textColor="@color/red">
+                            </TextView>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/loanDetailsContainer"
+                            android:layout_below="@+id/paymentPerContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="80dp"
+                            android:layout_marginBottom="20dp">
+                            <TextView
+                                android:id="@+id/interestRateText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/interest_rate_text"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="12dp"
+                                android:textSize="20dp">
+                            </TextView>
+                            <TextView
+                                android:id="@+id/interestRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100.0%"
+                                android:layout_marginLeft="186dp"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/play_bold"
+                                android:textSize="17dp">
+                            </TextView>
+                            <TextView
+                                android:id="@+id/ratePer"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:text="MONTHLY"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/play_bold"
+                                android:layout_marginRight="12dp"
+                                android:textSize="17dp">
+                            </TextView>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/loanDetailsContainer2"
+                            android:layout_below="@+id/loanDetailsContainer1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="115dp"
+                            android:layout_marginBottom="20dp">
+                            <TextView
+                                android:id="@+id/loanTermText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loan_term"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="12dp"
+                                android:textSize="20dp">
+                            </TextView>
+                            <TextView
+                                android:id="@+id/loanTerm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:layout_marginLeft="186dp"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/play_bold"
+                                android:layout_marginRight="12dp"
+                                android:textAlignment="center"
+                                android:textSize="17dp">
+                            </TextView>
+                            <TextView
+                                android:id="@+id/termPeriod"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:text="YEARS"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/play_bold"
+                                android:layout_marginRight="12dp"
+                                android:textSize="17dp">
+                            </TextView>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
 
                 </RelativeLayout>
                 <TextView

@@ -15,14 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.Wave;
-import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
@@ -31,10 +26,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     //Global Variables
     ImageButton backButton;
     PieChart pieChart;
-    float totalPayment = 0;
-    TextView interest, loan, payment, paymentPer;
+    TextView interest, loan, payment, paymentPer, interestRate, ratePer, loanTerm, termPeriod;
     //colors of pie chart
-    int[] colorArray = new int[]{Color.parseColor("#f7931e"), Color.parseColor("#ffd45c")};
+    int[] colorArray = new int[]{Color.parseColor("#ff7000"), Color.parseColor("#ffc000")};
     String activityFrom;
 
     @Override
@@ -47,26 +41,32 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("commonLog", "Getting passed values");
         Intent i = getIntent();
         Bundle extras = i.getExtras();
+        //assigning passed values to local variables
         float loanAmount = Float.parseFloat(extras.getString("lAmount"));
         float iRate = Float.parseFloat(extras.getString("iRate")) / 100;
         int lTerm = Integer.parseInt(extras.getString("lTerm"));
+        //get lTerm before it gets converted into months
+        int tempLTerm = lTerm;
+        //term period -> YEARS or MONTHS
         String rPeriod = extras.getString("rPeriod");
+        //rate per -> YEAR or MONTH
         String iRateTerm = extras.getString("iRateTerm");
+        //Variable keep info about initiated activity
         activityFrom = extras.getString("activityFrom");
         Log.d("commonLog", "Values are Assigned");
+        //end of assigning variables
 
         //calculation
         //interest term convert to months
         lTerm = getLoanTerm(rPeriod, lTerm);
-
         Log.d("commonLog", "Calculation Started");
         //get Interest Rate according to rate term given
         float interestPerMonth =  getInterestRatePerMonth(loanAmount, iRate, iRateTerm);
-
         final float paymentPerMonth = interestPerMonth + (loanAmount / lTerm);
         float totalPayment = paymentPerMonth * lTerm;
         float totalInterest = totalPayment - loanAmount;
         Log.d("commonLog", "Calculation Complete");
+        //calculation ends
 
         //initiate button references
         backButton = (ImageButton)findViewById(R.id.backButton);
@@ -76,14 +76,22 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         loan = (TextView)findViewById(R.id.loanAmount);
         payment = (TextView)findViewById(R.id.totalPayment);
         paymentPer = (TextView)findViewById(R.id.paymentPer);
-
-        //initial value paymentPer
-        paymentPer.setText(String.format("%.2f", paymentPerMonth));
+        interestRate = (TextView)findViewById(R.id.interestRate);
+        ratePer = (TextView)findViewById(R.id.ratePer);
+        loanTerm = (TextView)findViewById(R.id.loanTerm);
+        termPeriod = (TextView)findViewById(R.id.termPeriod);
+        //end of initiating text fields
 
         //Display Results
+        //initial value paymentPer which is calculated for a month
+        paymentPer.setText(String.format("%.2f", paymentPerMonth));
         interest.setText(String.format("%.2f", totalInterest));
         loan.setText(String.format("%.2f", loanAmount));
         payment.setText(String.format("%.2f", totalPayment));
+        interestRate.setText(String.format("%.2f", (iRate * 100)) + "%");
+        ratePer.setText(iRateTerm + "LY");
+        loanTerm.setText(Integer.toString(tempLTerm));
+        termPeriod.setText(tempLTerm > 1 ? rPeriod : rPeriod.equalsIgnoreCase("YEARS") ? "YEAR" : "MONTH");
 
         //Pie chart configurations
         pieChart = findViewById(R.id.resultChart);
@@ -110,32 +118,18 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         //Entry labels disabled
         //pieChart.setDrawEntryLabels(false);
-        //Pie chart animation
 
+        //Pie chart animation
         pieChart.animateXY(1000, 1000);
 
         //Spinner for loan term selection
         MaterialSpinner paymentPerSpinner = (MaterialSpinner) findViewById(R.id.paymentPerSpinner);
-        String[] periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
-
-        if(lTerm >= 12){
-            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
-        }else if(lTerm < 12 && lTerm > 6){
-            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
-        }else if(lTerm == 6){
-            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS"};
-        }else if(lTerm < 6 && lTerm > 3){
-            periods = new String[]{"MONTH", "3 MONTHS", "6 MONTHS"};
-        }else if(lTerm == 3){
-            periods = new String[]{"MONTH", "3 MONTHS"};
-        }else if(lTerm < 3 && lTerm > 1){
-            periods = new String[]{"MONTH", "3 MONTHS"};
-        }else{
-            periods = new String[]{"MONTH"};
-        }
-
+        //get generated loan term periods
+        String[] periods = generateTermPeriods(lTerm);
+        //set loan term periods
         paymentPerSpinner.setItems(periods);
 
+        //spinner onchange listener
         paymentPerSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 if(item.equalsIgnoreCase("MONTH")){
@@ -172,16 +166,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public float calculateInterestPower(float iRate, int lTerm){
-        float interestPower = 1;
-
-        for(int i = 0; i < lTerm ; i++ ){
-            interestPower *= (iRate + 1);
-        }
-
-        return interestPower;
-    }
-
     public int getLoanTerm(String ratePeriod, int loanTerm){
         //interest term convert to months
         if(ratePeriod.equalsIgnoreCase("YEARS")){
@@ -200,5 +184,19 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         return interestPerMonth;
+    }
+
+    public String[] generateTermPeriods(int lTerm){
+        if(lTerm >= 12){
+            return new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
+        }else if(lTerm < 12 && lTerm >= 6){
+            return new String[]{"MONTH", "3 MONTHS", "6 MONTHS"};
+        }else if(lTerm < 6 && lTerm >= 3){
+            return new String[]{"MONTH", "3 MONTHS"};
+        }else if(lTerm < 3 && lTerm >= 1){
+            return new String[]{"MONTH"};
+        }else{
+            return new String[]{"MONTH", "3 MONTHS", "6 MONTHS", "YEAR"};
+        }
     }
 }

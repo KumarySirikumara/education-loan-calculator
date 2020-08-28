@@ -36,7 +36,6 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
     //progress bar
     ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +55,10 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
         spinner.setItems("YEARS", "MONTHS");
         iRateSpinner.setItems("YEAR", "MONTH");
 
+        //Spinner onChange listener starts
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                //selects Term Period
                 spinnerSelection = item;
                 Snackbar.make(view, "Selected : " + item, Snackbar.LENGTH_LONG).show();
             }
@@ -65,10 +66,12 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
         iRateSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                //Selects Rate per
                 iRateSpinnerSelection = item;
                 Snackbar.make(view, "Selected : " + item, Snackbar.LENGTH_LONG).show();
             }
         });
+        //Spinner onChange listener ends
 
         //Initiate EditText Layouts
         loanAmountLayout = (TextInputLayout) findViewById(R.id.loanAmountEditTextLayout);
@@ -105,15 +108,15 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                 //submit button on click
                 //validate input values whether empty
                 if(!inputIsEmpty()){
-
                     Log.d("databaseOperation", "Database operation started!");
-
                     //add data to history repository
                     HistoryRepository historyRepository = new HistoryRepository();
                     historyRepository.setlAmount(Float.parseFloat(loanAmount.getText().toString()));
                     historyRepository.setiRate(Float.parseFloat(interestRate.getText().toString()));
-                    historyRepository.setRatePer(iRateSpinnerSelection);
                     historyRepository.setlTerm(Integer.parseInt(loanTerm.getText().toString()));
+                    //rate per -> YEAR or MONTH
+                    historyRepository.setRatePer(iRateSpinnerSelection);
+                    //term period -> YEARS or MONTHS
                     historyRepository.setTermPeriod(spinnerSelection);
 
                     //adding data to the database
@@ -122,29 +125,32 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
                     Log.d("databaseOperation", "Database operation end!");
 
-                    ArrayList<HistoryRepository> historyRepositories = dbHelper.readLatestFiveRecords();
-//                    for (HistoryRepository historyR : historyRepositories){
-//                        Log.d("databaseData", Float.toString(historyR.getlAmount()));
-//                        Log.d("databaseData", historyR.getSysDate());
-//                    }
-
                     //loader visibility to true
                     progressBar.setVisibility(View.VISIBLE);
 
                     if(result){
-                        //hide the loader
-                        progressBar.setVisibility(View.INVISIBLE);
+                        //validate inputs
+                        if(validateInputs(historyRepository)){
+                            //hide the loader
+                            progressBar.setVisibility(View.INVISIBLE);
 
-                        Toast.makeText(this, "History saved!", Toast.LENGTH_LONG).show();
-                        //pass values to the output activity
-                        Intent resultActivity = new Intent(this, ResultActivity.class);
-                        resultActivity.putExtra("lAmount", loanAmount.getText().toString());
-                        resultActivity.putExtra("iRate", interestRate.getText().toString());
-                        resultActivity.putExtra("lTerm", loanTerm.getText().toString());
-                        resultActivity.putExtra("rPeriod", spinnerSelection);
-                        resultActivity.putExtra("iRateTerm", iRateSpinnerSelection);
-                        resultActivity.putExtra("activityFrom", "Calculator");
-                        startActivity(resultActivity);
+                            Toast.makeText(this, "History saved!", Toast.LENGTH_LONG).show();
+                            //pass values to the output activity
+                            Intent resultActivity = new Intent(this, ResultActivity.class);
+                            resultActivity.putExtra("lAmount", Float.toString(historyRepository.getlAmount()));
+                            resultActivity.putExtra("iRate",  Float.toString(historyRepository.getiRate()));
+                            resultActivity.putExtra("lTerm", Integer.toString(historyRepository.getlTerm()));
+                            //term period -> YEARS or MONTHS
+                            resultActivity.putExtra("rPeriod", historyRepository.getTermPeriod());
+                            //rate per -> YEAR or MONTH
+                            resultActivity.putExtra("iRateTerm", historyRepository.getRatePer());
+                            resultActivity.putExtra("activityFrom", "Calculator");
+                            startActivity(resultActivity);
+                        }else{
+                            //hide the loader
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+
                     }else{
                         //hide the loader
                         progressBar.setVisibility(View.INVISIBLE);
@@ -185,5 +191,22 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
             return true;
         }
         return false;
+    }
+
+    public boolean validateInputs(HistoryRepository historyRepository){
+        if(historyRepository.getiRate() <= 0 && historyRepository.getlTerm() <= 0 && historyRepository.getlAmount() <= 0){
+            Toast.makeText(this, "Loan amount, Interest rate and loan term should be valid numbers!", Toast.LENGTH_LONG).show();
+            return false;
+        }else if(historyRepository.getiRate() <= 0){
+            Toast.makeText(this, "Interest Rate should be a valid number!", Toast.LENGTH_LONG).show();
+            return false;
+        }else if(historyRepository.getlTerm() <= 0){
+            Toast.makeText(this, "Loan Term should be a valid number!", Toast.LENGTH_LONG).show();
+            return false;
+        }else if(historyRepository.getlAmount() <= 0){
+            Toast.makeText(this, "Loan Amount should be a valid number!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

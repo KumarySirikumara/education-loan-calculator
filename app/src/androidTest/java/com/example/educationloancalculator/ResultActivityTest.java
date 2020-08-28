@@ -23,7 +23,6 @@ public class ResultActivityTest {
         protected Intent getActivityIntent() {
             Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
             Intent result = new Intent(targetContext, ResultActivity.class);
-            result.putExtra("Name", "Earth");
             result.putExtra("lAmount", "10000");
             result.putExtra("iRate", "5");
             result.putExtra("lTerm", "1");
