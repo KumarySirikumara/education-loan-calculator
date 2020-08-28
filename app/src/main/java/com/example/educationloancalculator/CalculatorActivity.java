@@ -195,17 +195,32 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
     }
 
     public boolean validateInputs(HistoryRepository historyRepository){
+        //set all errors to null
+        loanAmountLayout.setError(null);
+        interestRateLayout.setError(null);
+        loanTermLayout.setError(null);
+
         if(historyRepository.getiRate() <= 0 && historyRepository.getlTerm() <= 0 && historyRepository.getlAmount() <= 0){
+            //set errors for all input indicators
+            loanAmountLayout.setError("Cannot be empty!");
+            interestRateLayout.setError("Cannot be empty!");
+            loanTermLayout.setError("Cannot be empty!");
             Toast.makeText(this, "Loan amount, Interest rate and loan term should be valid numbers!", Toast.LENGTH_LONG).show();
             return false;
+        }else if(historyRepository.getlAmount() <= 0){
+            //input invalid indicator for loan amount
+            loanAmountLayout.setError("Cannot be empty!");
+            Toast.makeText(this, "Loan Amount should be a valid number!", Toast.LENGTH_LONG).show();
+            return false;
         }else if(historyRepository.getiRate() <= 0){
+            //input invalid indicator for interest rate
+            interestRateLayout.setError("Cannot be empty!");
             Toast.makeText(this, "Interest Rate should be a valid number!", Toast.LENGTH_LONG).show();
             return false;
-        }else if(historyRepository.getlTerm() <= 0){
+        }else if(historyRepository.getlTerm() <= 0) {
+            //input invalid indicator for loan term
+            loanTermLayout.setError("Cannot be empty!");
             Toast.makeText(this, "Loan Term should be a valid number!", Toast.LENGTH_LONG).show();
-            return false;
-        }else if(historyRepository.getlAmount() <= 0){
-            Toast.makeText(this, "Loan Amount should be a valid number!", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
